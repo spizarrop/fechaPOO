@@ -29,29 +29,16 @@ class Fecha
     {
         $fechaDescompuesta = $this->descomponerFecha($fecha);
 
-        switch ($fechaDescompuesta[1]) {
-            case 1:
-            case 3:
-            case 5:
-            case 7:
-            case 8:
-            case 10:
-            case 12:
-                return 31;
-            case 4:
-            case 6:
-            case 9:
-            case 11:
-                return 30;
-            case 2:
-                if ($fechaDescompuesta[2] % 4 == 0) {
-                    return 29;
-                } else {
-                    return 28;
-                }
-            default:
-                return;
+        $mesesDias = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+        if ($fechaDescompuesta[2] % 4 == 0) {
+            $mesesDias[1] = 29;
+        } else {
+            $mesesDias[1] = 28;
         }
+
+        return $mesesDias[$fechaDescompuesta[1] - 1];
+
     }
 
     private function descomponerFecha($fecha)
