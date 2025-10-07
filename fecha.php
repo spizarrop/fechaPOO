@@ -3,6 +3,9 @@
 class Fecha
 {
 
+    private $mesesDias = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    private $dias;
+
     public function formatoFecha($fecha)
     {
         $fechaDescompuesta = $this->descomponerFecha($fecha);
@@ -12,33 +15,22 @@ class Fecha
         return $fechaDescompuesta[0] . '/' . $meses[$fechaDescompuesta[1] - 1] . '/' . $fechaDescompuesta[2];
     }
 
-    public function esBisiesto($fecha)
+    private function esBisiesto($fecha)
     {
         $fechaDescompuesta = $this->descomponerFecha($fecha);
-
-        if ($fechaDescompuesta[2] % 4 == 0) {
-            $resultado = "Es un año bisiesto.";
-        } else {
-            $resultado = "No es año bisiesto.";
-        }
-
-        return $resultado;
-    }
-
-    public function calcularDias($fecha)
-    {
-        $fechaDescompuesta = $this->descomponerFecha($fecha);
-
-        $mesesDias = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
         if ($fechaDescompuesta[2] % 4 == 0) {
             $mesesDias[1] = 29;
         } else {
             $mesesDias[1] = 28;
         }
+    }
 
-        return $mesesDias[$fechaDescompuesta[1] - 1];
+    private function calcularDias($fecha)
+    {
+        $fechaDescompuesta = $this->descomponerFecha($fecha);
 
+        $dias = $this->mesesDias[$fechaDescompuesta[1] - 1];
     }
 
     private function descomponerFecha($fecha)
