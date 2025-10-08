@@ -4,6 +4,9 @@ class Fecha
 {
 
     private $mesesDias = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    public $bisiesto;
+    public $dias;
+    
 
     public function formatoFecha($fecha)
     {
@@ -11,11 +14,12 @@ class Fecha
 
         $meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 
-        $bisiesto = $this->esBisiesto($fecha);
-        $dias = $this->calcularDias($fecha);
         $fechaFinal = $fechaDescompuesta[0] . '/' . $meses[$fechaDescompuesta[1] - 1] . '/' . $fechaDescompuesta[2];
 
-        return 'La fecha es: '.$fechaFinal.'</br>'.$bisiesto.'</br>'.'El mes tiene: '.$dias.' días.';
+        $this->bisiesto = $this->esBisiesto($fecha);
+        $this->dias = $this->calcularDias($fecha);
+
+        return $fechaFinal;
     }
 
     private function esBisiesto($fecha)
